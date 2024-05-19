@@ -17,7 +17,8 @@ class Battle(Base):
     address = Column(String(255))
     reg_start = Column(DateTime)
     reg_end = Column(DateTime)
-    organizer_id = Column(String, ForeignKey('users.user_id'), nullable=True)
+    #organizer_id = Column(String, ForeignKey('users.user_id'), nullable=True)
+    # organizer_id = Column(String, nullable=True)
     genre = Column(String(100))
     format = Column(String(100))
     image_url = Column(String(255))
@@ -26,7 +27,7 @@ class Battle(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     updated_by = Column(String(50), nullable=True)
 
-    organizer = relationship("User", back_populates="organized_battles")
+    #organizer = relationship("User", back_populates="organized_battles")
 
 class User(Base):
     __tablename__ = 'users'
@@ -40,4 +41,4 @@ class User(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     updated_by = Column(String(50), nullable=True)
 
-    organized_battles = relationship("Battle", back_populates="organizer")
+    #organized_battles = relationship("Battle", back_populates="organizer")

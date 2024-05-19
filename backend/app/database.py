@@ -3,16 +3,13 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
-import os
+from app.core.config import settings
 
-load_dotenv()
-
-DATABSE_URL = os.getenv("DATABSE_URL")
+DATABSE_URL = settings.DATABASE_URL
+# print("db url: ", DATABSE_URL)
 
 engine = create_engine(DATABSE_URL)
 SesssionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
 Base = declarative_base()
 
 def get_db():

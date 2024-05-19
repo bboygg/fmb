@@ -1,4 +1,5 @@
-from fastapi.routing import APIRouter, Depends, HTTPException, status
+from fastapi.routing import APIRouter
+from fastapi import Depends, HTTPException, status
 from app.api import crud, schemas
 from sqlalchemy.orm import Session
 from typing import List 
@@ -24,8 +25,8 @@ def get_battles(skip: int = 0, limit: int = 100, db: Session = Depends(get_db) )
     return battles
 
 
-@router.get("/battles/{battle_id}", response_mode=schemas.Battle)
-def get_battle(batte_id: int, db: Session = Depends(get_db)):
+@router.get("/battles/{battle_id}", response_model=schemas.Battle)
+def get_battle(battle_id: int, db: Session = Depends(get_db)):
     """
     Retrieve specific battle with given battle_id from the datase.
 
@@ -36,8 +37,13 @@ def get_battle(batte_id: int, db: Session = Depends(get_db)):
     Returns:
         schemas.Battle: Battle Record
     """
-    battle = crud.get_battle(db, battle_id=batte_id)
+    
+    battle = crud.get_battle(db, battle_id=battle_id)
+    if not battle:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"battle with id: {battle_id} was not found")
     return battle
+
 
 
 

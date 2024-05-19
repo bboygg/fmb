@@ -1,1 +1,0 @@
-# Contains utility functions that can be used across the diffrent modules.

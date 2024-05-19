@@ -14,7 +14,7 @@ from typing import Optional, List
 class BattleBase(BaseModel):
     name: str
     description: Optional[str] = None
-    link: str
+    url: str
     date: datetime
     city: str
     country: str
